@@ -4,7 +4,8 @@ Overview
 --------
 
 This gem adds `Data Capture` object allowing the user to add numbers and returns an object for querying statistics about the inputs. Specifically, the returned object supports
-querying how many numbers in the collection are
+querying how many numbers in the collection are like
+
 * less than a value.
 * greater than a value.
 * between a range.
