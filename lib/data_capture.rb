@@ -1,24 +1,23 @@
-require "statistics"
+require "statistics/stats"
 class DataCapture
   attr_reader :stats
 
   def initialize
     @data = []
-    @stats = Statistics::Stats.new(data)
+    @stats
   end
 
   def add(*args)
-    array.push(*args)
+    data.push(*args)
+  end
+
+  def build_stats
+    @stats = Statistics::Stats.new(data)
   end
 
   private
 
   def data
     @data
-  end
-
-  def method_missing(method, *args)
-    return data.send(method, *args) if data.respond_to?(method)
-    super
   end
 end
