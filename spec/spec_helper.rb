@@ -1,5 +1,26 @@
+require 'simplecov'
+require 'simplecov-cobertura'
+
 require "bundler/setup"
 require "statistics"
+require "data_capture"
+
+SimpleCov.start do
+  enable_coverage :branch
+
+  formatter SimpleCov::Formatter::MultiFormatter.new([
+    SimpleCov::Formatter::SimpleFormatter,
+    SimpleCov::Formatter::CoberturaFormatter,
+    SimpleCov::Formatter::HTMLFormatter
+  ])
+
+  add_filter '/spec/'
+  add_filter do |src|
+    (src.filename =~ /version/)
+  end
+
+  track_files "**/*.rb"
+end
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
