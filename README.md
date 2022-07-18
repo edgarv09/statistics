@@ -1,15 +1,21 @@
 # Statistics
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/statistics`. To experiment with that code, run `bin/console` for an interactive prompt.
+Overview
+--------
 
-TODO: Delete this and the text above, and describe your gem
+This gem adds `Data Capture` object allowing the user to add numbers and returns an object for querying statistics about the inputs. Specifically, the returned object supports
+querying how many numbers in the collection are
+* less than a value.
+* greater than a value.
+* between a range.
+
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'statistics'
+gem 'statistics', git: "https://github.com/edgarv09/statistics.git", branch: :main
 ```
 
 And then execute:
@@ -18,11 +24,34 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install statistics
+    $ gem install  --source https://github.com/edgarv09/statistics.git statistics
 
 ## Usage
 
-TODO: Write usage instructions here
+Require `Statistics` module and the class `DataCapture` would be available to store the numbers and being able to querying the statistics about the input
+
+```ruby
+require 'statistics'
+
+capture = DataCapture.new
+capture.add 3
+#=> [3]
+capture.add 9
+#=> [3, 9]
+capture.add 3
+#=> [3, 9, 3]
+capture.add 4
+#=> [3, 9, 3, 4]
+capture.add 6
+#=> [3, 9, 3, 4, 6]
+stats = capture.build_stats()
+stats.less(4)
+#=> 2
+stats.between(3, 6)
+#=> 4
+stats.greater(4)
+#=> 2
+```
 
 ## Development
 
